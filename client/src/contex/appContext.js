@@ -7,7 +7,9 @@ import {
   CLEAR_ALERT, 
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR
+  SETUP_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -16,6 +18,7 @@ const userLocation = localStorage.getItem('location');
 
 const initialState = {
   isLoading: false,
+  showSidebar: false,
   showAlert: false,
   alertText: '',
   alertType: '',
@@ -41,16 +44,20 @@ const AppProvider = ({children}) => {
     }, 3000)
   };
 
+  const toggleSidebar = () => {
+    dispatch({type: TOGGLE_SIDEBAR})
+  }
+
   const setUserToLocalStorage = ({user, token, location}) => {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
     localStorage.setItem('location', location);
   };
 
-  const deleteUserFromLocalStorage = ({user, token, location}) => {
-    localStorage.clear('user', user);
-    localStorage.clear('token', token);
-    localStorage.clear('location', location);
+  const deleteUserFromLocalStorage = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('location');
   }
 
   const setUpUser = async({currentUser, type, alertText}) => {
@@ -73,8 +80,13 @@ const AppProvider = ({children}) => {
     }
     clearAlert();
   }
+
+  const logOutUser = () => {
+    deleteUserFromLocalStorage();
+    dispatch({type:LOGOUT_USER});
+  };
   
-  return <AppContext.Provider value={{...state, displayAlert, clearAlert, setUpUser}}>
+  return <AppContext.Provider value={{...state, displayAlert, clearAlert, setUpUser, toggleSidebar, logOutUser}}>
     {children}
   </AppContext.Provider>
 };

@@ -1,9 +1,12 @@
+import { initialState } from "./appContext";
 import { 
   DISPLAY_ALERT, 
   CLEAR_ALERT,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR
+  SETUP_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -17,7 +20,6 @@ const reducer = (state, action) => {
     return {...state, isLoading: true,};
   }
   if(action.type === SETUP_USER_SUCCESS) {
-    console.log(action.payload.alertText)
     return {
       ...state,
       isLoading: false,
@@ -38,6 +40,14 @@ const reducer = (state, action) => {
       alertType: 'danger',
       alertText: action.payload.msg,
     }
+  }
+  if(action.type === TOGGLE_SIDEBAR) {
+    return {
+      ...state, 
+      showSidebar: !state.showSidebar};
+  }
+  if(action.type === LOGOUT_USER){
+    return {...initialState}
   }
 
   throw new Error(`no sucha action: ${action.type}`);

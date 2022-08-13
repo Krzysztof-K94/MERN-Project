@@ -13,11 +13,13 @@ const Wrapper = styled.aside`
     align-items: center;
     z-index: -1;
     opacity: 0;
+    visibility: hidden;
     transition: var(--transition);
   }
   .show-sidebar {
     z-index: 99;
     opacity: 1;
+    visibility: visible;
   }
   .content {
     background: var(--white);
