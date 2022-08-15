@@ -9,7 +9,10 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
-  LOGOUT_USER
+  LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -22,7 +25,7 @@ const initialState = {
   showAlert: false,
   alertText: '',
   alertType: '',
-  user: JSON.parse(user) || null,
+  user: user ? JSON.parse(user) : null,
   token: token,
   userLocation: userLocation || '',
   jobLocation: userLocation || ''
@@ -36,10 +39,28 @@ const AppProvider = ({children}) => {
 
   const authFetch = axios.create({
     baseURL: '/api/v1',
-    headers: {
-      Authorization : `Bearer ${state.token}`,
-    } 
-  })
+  });
+
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common['Authorization'] = `Bearer ${state.token}`;
+      return config
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  authFetch.interceptors.response.use(
+    (response) => {
+      
+      return response
+    },
+    (error) => {
+      if(error.response.status === 401) logOutUser();
+      return Promise.reject(error);
+    }
+  );
 
   const displayAlert = () => {
     dispatch({type: DISPLAY_ALERT});
@@ -56,6 +77,7 @@ const AppProvider = ({children}) => {
   }
 
   const setUserToLocalStorage = ({user, token, location}) => {
+    console.log(user, token, location)
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
     localStorage.setItem('location', location);
@@ -73,7 +95,6 @@ const AppProvider = ({children}) => {
     try {
       const {data} = await axios.post(`/api/v1/auth/${type}`, currentUser);
       const {user, token, location} = data;
-
       dispatch({type: SETUP_USER_SUCCESS, payload: {
         user,
         token,
@@ -94,12 +115,17 @@ const AppProvider = ({children}) => {
   };
 
   const updateUser = async(currentUser) => {
+    dispatch({type: UPDATE_USER_BEGIN});
     try {
       const {data} = await authFetch.patch('/auth/updateUser', currentUser);
-      console.log(data)
+      const {user, location, token} = data;
+      setUserToLocalStorage({user,token,location});
+      dispatch({type: UPDATE_USER_SUCCESS, payload : {user, location, token}});
     } catch (error) {
-      console.log(error.response)
+      if(error.response.status === 401) return;
+      dispatch({type: UPDATE_USER_ERROR, msg: error.response.data.msg});
     }
+    clearAlert();
   }
   
   return <AppContext.Provider value={{...state, displayAlert, clearAlert, setUpUser, toggleSidebar, logOutUser, updateUser}}>

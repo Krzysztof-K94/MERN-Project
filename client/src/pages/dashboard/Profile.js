@@ -12,9 +12,12 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!name || !email || !lastName || !location) displayAlert();
+    if(!name || !email || !lastName || !location) {
+      displayAlert();
+       return;
+    } 
     updateUser({name, email, lastName, location});
-  }
+  };
   return (
     <Wrapper>
       <form className="form" onSubmit={handleSubmit}>
