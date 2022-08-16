@@ -13,6 +13,11 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  SETUP_JOB_BEGIN,
+  SETUP_JOB_SUCCESS,
+  SETUP_JOB_ERROR
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -31,7 +36,7 @@ const initialState = {
   isEditing: false,
   editJobId: '',
   position: '',
-  compoany: '',
+  company: '',
   jobLocation: userLocation || '',
   jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
   jobType: 'full-time',
@@ -132,9 +137,31 @@ const AppProvider = ({children}) => {
       dispatch({type: UPDATE_USER_ERROR, msg: error.response.data.msg});
     }
     clearAlert();
+  };
+
+  const handleChange = ({name, value}) => {
+    dispatch({type:HANDLE_CHANGE, payload: {name, value}});
+  };
+  
+  const clearValues = () => {
+    dispatch({type:CLEAR_VALUES});
+  };
+
+  const setUpJob = async() => {
+    dispatch({type:SETUP_JOB_BEGIN});
+    try {
+      const {position, company, jobLocation, jobType, status} = state;
+      await authFetch.post('/jobs', {position, company, jobLocation, jobType, status});
+      dispatch({type: SETUP_JOB_SUCCESS});
+      clearValues();
+    } catch (error) {
+      if(error.response.status === 401) return;
+      dispatch({type: SETUP_JOB_ERROR, payload: {msg: error.response.data.msg}});
+    }
+    clearAlert();
   }
   
-  return <AppContext.Provider value={{...state, displayAlert, clearAlert, setUpUser, toggleSidebar, logOutUser, updateUser}}>
+  return <AppContext.Provider value={{...state, displayAlert, clearAlert, setUpUser, toggleSidebar, logOutUser, updateUser, handleChange, clearValues, setUpJob}}>
     {children}
   </AppContext.Provider>
 };

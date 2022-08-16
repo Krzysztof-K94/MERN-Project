@@ -47,7 +47,6 @@ const Register = () => {
       
     } else {
       setUpUser({currentUser, type:'register', alertText:'User Created. Redirecting...'});
-      // registerUser(currentUser);
     }
   };
 
