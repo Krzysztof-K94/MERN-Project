@@ -28,9 +28,16 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   userLocation: userLocation || '',
-  jobLocation: userLocation || ''
+  isEditing: false,
+  editJobId: '',
+  position: '',
+  compoany: '',
+  jobLocation: userLocation || '',
+  jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
+  jobType: 'full-time',
+  statusOptions: ['interview', 'declined', 'pending'],
+  status: 'pending',
 };
-
 
 const AppContext = React.createContext();
 
@@ -77,7 +84,6 @@ const AppProvider = ({children}) => {
   }
 
   const setUserToLocalStorage = ({user, token, location}) => {
-    console.log(user, token, location)
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
     localStorage.setItem('location', location);
