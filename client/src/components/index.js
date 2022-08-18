@@ -6,5 +6,8 @@ import SmallSidebar from './SmallSidebar.js';
 import Navbar from './Navbar.js';
 import NavLinks from './NavLinks.js';
 import FormRowSelect from './FormRowSelect.js';
+import SearchContainer from './SearchContainer.js';
+import JobsContainer from './JobsContainer.js';
+import Job from './Job.js';
 
-export {Logo, FormRow, Alert, BigSidebar, SmallSidebar, Navbar, NavLinks, FormRowSelect};
+export {Logo, FormRow, Alert, BigSidebar, SmallSidebar, Navbar, NavLinks, FormRowSelect, SearchContainer, JobsContainer, Job};

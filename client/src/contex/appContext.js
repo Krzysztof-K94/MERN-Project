@@ -17,7 +17,9 @@ import {
   CLEAR_VALUES,
   SETUP_JOB_BEGIN,
   SETUP_JOB_SUCCESS,
-  SETUP_JOB_ERROR
+  SETUP_JOB_ERROR,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -42,6 +44,10 @@ const initialState = {
   jobType: 'full-time',
   statusOptions: ['interview', 'declined', 'pending'],
   status: 'pending',
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
 };
 
 const AppContext = React.createContext();
@@ -159,9 +165,46 @@ const AppProvider = ({children}) => {
       dispatch({type: SETUP_JOB_ERROR, payload: {msg: error.response.data.msg}});
     }
     clearAlert();
-  }
+  };
+  const getAllJobs = async() => {
+    dispatch({type: GET_JOBS_BEGIN});
+    try {
+      const {data} = await authFetch.get('/jobs');
+      const {jobs, totalJobs, numOfPages} = data;
+      dispatch({type: GET_JOBS_SUCCESS, payload: {
+        jobs,
+        totalJobs,
+        numOfPages,
+      }});
+    } catch (error) {
+      console.log(error)
+      // logOutUser();
+    }
+    clearAlert();
+  };
+
+  const setEditJob = () => {
+    console.log('edit job')
+  };
+  const deleteJob = () => {
+    console.log('detele job');
+  };
   
-  return <AppContext.Provider value={{...state, displayAlert, clearAlert, setUpUser, toggleSidebar, logOutUser, updateUser, handleChange, clearValues, setUpJob}}>
+  return <AppContext.Provider 
+            value={{
+              ...state, 
+              getAllJobs, 
+              displayAlert, 
+              clearAlert, 
+              setUpUser, 
+              toggleSidebar, 
+              logOutUser, 
+              updateUser, 
+              handleChange, 
+              clearValues, 
+              setUpJob, 
+              setEditJob, 
+              deleteJob}}>
     {children}
   </AppContext.Provider>
 };
