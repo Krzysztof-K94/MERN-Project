@@ -9,5 +9,6 @@ import FormRowSelect from './FormRowSelect.js';
 import SearchContainer from './SearchContainer.js';
 import JobsContainer from './JobsContainer.js';
 import Job from './Job.js';
+import JobInfo from './JobInfo.js';
 
-export {Logo, FormRow, Alert, BigSidebar, SmallSidebar, Navbar, NavLinks, FormRowSelect, SearchContainer, JobsContainer, Job};
+export {JobInfo, Logo, FormRow, Alert, BigSidebar, SmallSidebar, Navbar, NavLinks, FormRowSelect, SearchContainer, JobsContainer, Job};
