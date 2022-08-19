@@ -19,7 +19,8 @@ import {
   SETUP_JOB_SUCCESS,
   SETUP_JOB_ERROR,
   GET_JOBS_BEGIN,
-  GET_JOBS_SUCCESS
+  GET_JOBS_SUCCESS,
+  SET_EDIT_JOB,
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -183,9 +184,12 @@ const AppProvider = ({children}) => {
     clearAlert();
   };
 
-  const setEditJob = () => {
-    console.log('edit job')
+  const setEditJob = (id) => {
+    dispatch({type: SET_EDIT_JOB, payload: {id}})
   };
+  const editJob = (id) => {
+    console.log('edit')
+  }
   const deleteJob = () => {
     console.log('detele job');
   };
@@ -204,7 +208,9 @@ const AppProvider = ({children}) => {
               clearValues, 
               setUpJob, 
               setEditJob, 
-              deleteJob}}>
+              deleteJob,
+              editJob,
+              }}>
     {children}
   </AppContext.Provider>
 };

@@ -5,12 +5,12 @@ import {FaLocationArrow, FaBriefcase,FaCalendar} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import JobInfo from './JobInfo.js';
 
-const Job = ({job,_id, position, company,jobLocation, jobType,  status, createdAt}) => {
+const Job = ({_id, position, company,jobLocation, jobType,  status, createdAt}) => {
   const {setEditJob, deleteJob} = useAppContext();
 
   let date = moment(createdAt);
   date = date.format('LL')
-  console.log(job)
+
   return (
     <Wrapper>
       <header>
