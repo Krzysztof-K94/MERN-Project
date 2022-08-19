@@ -15,11 +15,12 @@ const createJob = async(req, res) => {
 
 const deleteJob = async(req, res) => {
   const {id : jobId} = req.params;
-  const job = await Job.find({jobId});
+
+  const job = await Job.findOne({_id: jobId});
 
   if(!job) throw new NotFoundError('Job not found')
 
-  checkPermissions(req.user, job.jobId);
+  checkPermissions(req.user, job.createdBy);
   await job.remove();
 
   res.status(StatusCodes.OK).json({msg: 'Success! Job removed'})
@@ -35,7 +36,8 @@ const updateJob = async(req, res) => {
   const {position, company, jobLocation, jobType, status} = req.body;
   if(!position || !company || !jobLocation) throw new BadRequestError('Please provide all values');
 
-  const job = await Job.find({_id:jobId});
+  const job = await Job.findOne({_id:jobId});
+
   checkPermissions(req.user, job.createdBy);
 
   if(!job) throw new NotFoundError('Job not found');

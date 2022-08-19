@@ -50,7 +50,7 @@ const AddJob = () => {
           <FormRowSelect labelText='Job type' name='jobType' value={jobType} handleChange={handleJobInput} list={jobTypeOptions}/>
           <div className='btn-container'>
             <button className='btn btn-block submit-btn' type='submit' disabled={isLoading}>Submit</button>
-            <button type='button' className='btn btn-block btn-clear' onClick={clearValues}>Clear</button>
+            <button type='button' className='btn btn-block btn-clear' onClick={clearValues}>{isEditing ? `Back to Add Job`: 'Clear'}</button>
           </div>
         </div>
       </form>
