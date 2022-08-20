@@ -25,6 +25,7 @@
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "kickbox": "^2.0.4",
+    "moment": "^2.29.4",
     "moongose": "^1.0.0",
     "morgan": "^1.10.0",
     "node-email-validation": "^1.0.4",
