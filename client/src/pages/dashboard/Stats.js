@@ -1,19 +1,25 @@
 import { useAppContext } from "../../contex/appContext";
-import Wrapper from '../../assets/wrappers/StatsContainer.js';
-import {StatItem} from '../../components';
+import {StatsContainer, ChartsContainer, Loading} from '../../components';
 import { useEffect } from "react";
 
-const Stats = () => {
-  const {getStats} = useAppContext();
 
-  
+const Stats = () => {
+  const {getStats, isLoading} = useAppContext();
+
+  useEffect(()=> {
+    getStats();
+  }, []);
+
+  if(isLoading) {
+    return <Loading center />;
+  };
 
   return (
-    <Wrapper>
-      <StatItem />
-      <button type="button" onClick={getStats}>Click</button>
-    </Wrapper>
-    
+    <div>
+      <StatsContainer />
+      <ChartsContainer />
+    </div>
+
   )
 };
 export default Stats;

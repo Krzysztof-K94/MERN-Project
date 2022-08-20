@@ -65,7 +65,7 @@ const showStats = async(req, res) => {
     return acc;
   }, {});
   const defaultStats = {
-    panding: 0 || stats.panding,
+    pending: 0 || stats.pending,
     interview: 0 || stats.interview,
     declined: 0 || stats.declined,
   };

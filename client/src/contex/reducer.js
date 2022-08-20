@@ -189,7 +189,7 @@ const reducer = (state, action) => {
   if(action.type === GET_STATS_BEGIN){
     return {...state, isLoading: true}
   }
-  if(action.type === GET_STATS_BEGIN) {
+  if(action.type === GET_STATS_SUCCESS) {
     return {
       ...state,
       isLoading: false,

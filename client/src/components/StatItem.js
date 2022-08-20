@@ -1,14 +1,13 @@
 import Wrapper from '../assets/wrappers/StatItem.js';
-import { useAppContext } from '../contex/appContext.js';
-import {FaLocationArrow} from 'react-icons/fa';
-const StatItem = () => {
+
+const StatItem = ({count,icon,title, color, bgc}) => {
   return (
-    <Wrapper>
+    <Wrapper color={color} bgc={bgc}>
       <header>
-        <span className='count'>{2}</span>
-        <span className='icon'>{<FaLocationArrow />}</span>
+        <span className='count'>{count}</span>
+        <span className='icon'>{icon}</span>
       </header>
-      <h5>Panding Applications</h5>
+      <h5 className='title'>{title}</h5>
     </Wrapper>
   )
 };
