@@ -21,7 +21,9 @@ import {
   DELETE_JOB_BEGIN,
   EDIT_JOB_BEGIN,
   EDIT_JOB_SUCCESS,
-  EDIT_JOB_ERROR
+  EDIT_JOB_ERROR,
+  GET_STATS_BEGIN,
+  GET_STATS_SUCCESS
 } from "./actions";
 
 
@@ -182,6 +184,17 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: 'danger',
       alertText: action.payload.msg
+    }
+  }
+  if(action.type === GET_STATS_BEGIN){
+    return {...state, isLoading: true}
+  }
+  if(action.type === GET_STATS_BEGIN) {
+    return {
+      ...state,
+      isLoading: false,
+      stats: action.payload.defaultStats,
+      monthlyApplication: action.payload.monthlyApplication,
     }
   }
   throw new Error(`no sucha action: ${action.type}`);

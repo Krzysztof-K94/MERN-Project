@@ -10,5 +10,6 @@ import SearchContainer from './SearchContainer.js';
 import JobsContainer from './JobsContainer.js';
 import Job from './Job.js';
 import JobInfo from './JobInfo.js';
+import StatItem from './StatItem.js';
 
-export {JobInfo, Logo, FormRow, Alert, BigSidebar, SmallSidebar, Navbar, NavLinks, FormRowSelect, SearchContainer, JobsContainer, Job};
+export {JobInfo, StatItem, Logo, FormRow, Alert, BigSidebar, SmallSidebar, Navbar, NavLinks, FormRowSelect, SearchContainer, JobsContainer, Job};
