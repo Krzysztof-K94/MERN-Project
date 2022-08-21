@@ -224,6 +224,7 @@ const AppProvider = ({children}) => {
     try {
       const {data} = await authFetch.get('/jobs/stats');
       const {defaultStats, monthlyApplications} = data;
+      console.log(monthlyApplications)
       dispatch({type: GET_STATS_SUCCESS, payload: {defaultStats, monthlyApplications}});
     } catch (error) {
       logOutUser();
