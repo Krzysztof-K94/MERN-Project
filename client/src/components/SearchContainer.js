@@ -21,9 +21,9 @@ const SearchContainer = () => {
         <div className="form-center">
           {showAlert && <Alert />}
           <FormRow type='text' name='search' value={search} handleChange={handleSearchInput}/>
-          <FormRowSelect name='searchStatus' value={searchStatus} list={['all',...statusOptions]} handleChange={handleSearchInput} />
+          <FormRowSelect name='searchStatus' labelText='Status' value={searchStatus} list={['all',...statusOptions]} handleChange={handleSearchInput} />
           <FormRowSelect labelText='Type' name='searchType' value={searchType} list={['all',...jobTypeOptions]} handleChange={handleSearchInput} />
-          <FormRowSelect name='sort' value={sort} list={sortOptions} handleChange={handleSearchInput} />
+          <FormRowSelect name='sort' labelText='Sort' value={sort} list={sortOptions} handleChange={handleSearchInput} />
           <button type="button" className="btn btn-block btn-danger" onClick={() => console.log('sd')} disabled={isLoading}>Clear Filters</button>
         </div>
       </form>

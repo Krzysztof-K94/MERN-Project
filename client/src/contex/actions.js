@@ -23,3 +23,4 @@ export const EDIT_JOB_ERROR = 'EDIT_JOB_ERROR';
 export const GET_STATS_BEGIN = 'GET_STATS_BEGIN';
 export const GET_STATS_SUCCESS = 'GET_STATS_SUCCESS';
 export const CLEAR_FILTERS = 'CLEAR_FILTER';
+export const CHANGE_PAGE = 'CHANGE_PAGE';

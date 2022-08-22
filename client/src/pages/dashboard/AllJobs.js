@@ -1,9 +1,6 @@
-import {useAppContext} from '../../contex/appContext.js';
 import {SearchContainer, JobsContainer} from '../../components';
 
-
 const AllJobs = () => {
-  const {getAllJobs, jobs} = useAppContext();
   return (
     <div>
       <div>
@@ -11,7 +8,6 @@ const AllJobs = () => {
         <JobsContainer />
       </div>
     </div>
-
   )
 };
 export default AllJobs;

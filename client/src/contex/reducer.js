@@ -25,6 +25,7 @@ import {
   GET_STATS_BEGIN,
   GET_STATS_SUCCESS,
   CLEAR_FILTERS,
+  CHANGE_PAGE
 } from "./actions";
 
 
@@ -98,6 +99,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       [action.payload.name] : action.payload.value,
+      page: 1,
     }
   }
   if(action.type === CLEAR_VALUES) {
@@ -205,6 +207,12 @@ const reducer = (state, action) => {
       searchType: 'all',
       searchStatus: 'all',
       sort: 'latest'
+    }
+  }
+  if(action.type === CHANGE_PAGE) {
+    return {
+      ...state,
+      page: action.payload.page,
     }
   }
   throw new Error(`no sucha action: ${action.type}`);

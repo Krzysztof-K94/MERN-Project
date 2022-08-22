@@ -16,4 +16,24 @@ import ChartsContainer from './ChartsContainer.js';
 import Loading from './Loading.js';
 import AreaChartComponent from './AreaChart.js';
 import BarChartComponent from './BarChart.js';
-export {AreaChartComponent,BarChartComponent,Loading, ChartsContainer, JobInfo, StatItem, Logo, FormRow, Alert, StatsContainer, BigSidebar, SmallSidebar, Navbar, NavLinks, FormRowSelect, SearchContainer, JobsContainer, Job};
+import PageBtnContainer from './PageBtnCotnainer.js';
+export {
+  AreaChartComponent,
+  PageBtnContainer,
+  BarChartComponent,
+  Loading,
+  ChartsContainer, 
+  JobInfo, 
+  StatItem, 
+  Logo, 
+  FormRow, 
+  Alert, 
+  StatsContainer, 
+  BigSidebar, 
+  SmallSidebar, 
+  Navbar, 
+  NavLinks, 
+  FormRowSelect, 
+  SearchContainer, 
+  JobsContainer, 
+  Job};

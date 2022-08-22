@@ -28,6 +28,7 @@ import {
   GET_STATS_BEGIN,
   GET_STATS_SUCCESS,
   CLEAR_FILTERS,
+  CHANGE_PAGE
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -182,10 +183,12 @@ const AppProvider = ({children}) => {
     clearAlert();
   };
   const getAllJobs = async() => {
-    const {search, searchType, searchStatus,sort} = state;
+    const {search, searchType, searchStatus,sort,page} = state;
     dispatch({type: GET_JOBS_BEGIN});
-    let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
+    
+    let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
     if(search) url += `&search=${search}`;
+
     try {
       const {data} = await authFetch.get(url);
       const {jobs, totalJobs, numOfPages} = data;
@@ -243,10 +246,15 @@ const AppProvider = ({children}) => {
   const clearFilters = () => {
     dispatch({type: CLEAR_FILTERS});
   };
+
+  const changePage = (page) => {
+    dispatch({type: CHANGE_PAGE, payload: {page}});
+  }
   
   return <AppContext.Provider 
             value={{
               ...state,
+              changePage,
               clearFilters,
               getStats,
               getAllJobs, 
