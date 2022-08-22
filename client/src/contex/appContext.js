@@ -26,7 +26,8 @@ import {
   EDIT_JOB_SUCCESS,
   EDIT_JOB_ERROR,
   GET_STATS_BEGIN,
-  GET_STATS_SUCCESS
+  GET_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -57,6 +58,11 @@ const initialState = {
   page: 1,
   stats: {},
   monthlyApplications: [],
+  search: '',
+  searchStatus: 'all',
+  searchType: 'all',
+  sort: 'lates',
+  sortOptions: ['lates', 'oldest', 'a-z', 'z-a'],
 };
 
 const AppContext = React.createContext();
@@ -176,9 +182,12 @@ const AppProvider = ({children}) => {
     clearAlert();
   };
   const getAllJobs = async() => {
+    const {search, searchType, searchStatus,sort} = state;
     dispatch({type: GET_JOBS_BEGIN});
+    let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
+    if(search) url += `&search=${search}`;
     try {
-      const {data} = await authFetch.get('/jobs');
+      const {data} = await authFetch.get(url);
       const {jobs, totalJobs, numOfPages} = data;
       dispatch({type: GET_JOBS_SUCCESS, payload: {
         jobs,
@@ -224,17 +233,21 @@ const AppProvider = ({children}) => {
     try {
       const {data} = await authFetch.get('/jobs/stats');
       const {defaultStats, monthlyApplications} = data;
-      console.log(monthlyApplications)
       dispatch({type: GET_STATS_SUCCESS, payload: {defaultStats, monthlyApplications}});
     } catch (error) {
       logOutUser();
     }
     clearAlert();
   };
+
+  const clearFilters = () => {
+    dispatch({type: CLEAR_FILTERS});
+  };
   
   return <AppContext.Provider 
             value={{
-              ...state, 
+              ...state,
+              clearFilters,
               getStats,
               getAllJobs, 
               displayAlert, 

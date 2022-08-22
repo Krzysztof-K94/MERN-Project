@@ -23,7 +23,8 @@ import {
   EDIT_JOB_SUCCESS,
   EDIT_JOB_ERROR,
   GET_STATS_BEGIN,
-  GET_STATS_SUCCESS
+  GET_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from "./actions";
 
 
@@ -195,6 +196,15 @@ const reducer = (state, action) => {
       isLoading: false,
       stats: action.payload.defaultStats,
       monthlyApplications: action.payload.monthlyApplications,
+    }
+  }
+  if(action.type === CLEAR_FILTERS) {
+    return {
+      ...state,
+      search: '',
+      searchType: 'all',
+      searchStatus: 'all',
+      sort: 'latest'
     }
   }
   throw new Error(`no sucha action: ${action.type}`);
