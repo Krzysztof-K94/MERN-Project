@@ -198,8 +198,7 @@ const AppProvider = ({children}) => {
         numOfPages,
       }});
     } catch (error) {
-      console.log(error)
-      // logOutUser();
+      logOutUser();
     }
     clearAlert();
   };

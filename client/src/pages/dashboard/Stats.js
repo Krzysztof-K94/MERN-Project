@@ -2,12 +2,12 @@ import { useAppContext } from "../../contex/appContext";
 import {StatsContainer, ChartsContainer, Loading} from '../../components';
 import { useEffect } from "react";
 
-
 const Stats = () => {
   const {getStats, isLoading} = useAppContext();
 
   useEffect(()=> {
     getStats();
+    //eslint-disable-next-line
   }, []);
 
   if(isLoading) {
@@ -19,7 +19,6 @@ const Stats = () => {
       <StatsContainer />
       <ChartsContainer />
     </div>
-
   )
 };
 export default Stats;

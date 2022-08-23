@@ -6,7 +6,6 @@ import { useAppContext } from '../contex/appContext.js';
 const ChartsContainer = () => {
   const [barChart, setBarChart] = useState(true);
   const {monthlyApplications: data} = useAppContext();
-  console.log(data)
   return (
     <Wrapper>
       <h4>Monthly Applications</h4>
